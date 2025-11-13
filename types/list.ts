@@ -1,4 +1,4 @@
-type ListItemData = {
+export type ListItemData = {
   id: string;
   title: string;
   description: string;

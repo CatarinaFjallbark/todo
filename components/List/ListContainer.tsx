@@ -1,22 +1,18 @@
-import ListItem from "./ListItem";
+"use client";
 
-export default function List() {
-  const items = [
-    {
-      title: "test",
-      description: "testDesc",
-      id: "dkldkmsl",
-      dueDate: "2022",
-      checked: false,
-    },
-    {
-      title: "test",
-      description: "testDesc",
-      id: "4rfe",
-      dueDate: "2022",
-      checked: true,
-    },
-  ];
+import { useEffect, useState } from "react";
+import ListItem from "./ListItem";
+import { ListItemData } from "@/types/list";
+
+export default function ListContainer() {
+  const [items, setItems] = useState<ListItemData[]>([]);
+
+  useEffect(() => {
+    fetch("/api/todos")
+      .then((res) => res.json())
+      .then(setItems);
+  }, []);
+
   return (
     <ul className="w-full">
       {items.map((item) => (
