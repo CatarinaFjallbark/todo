@@ -1,24 +1,16 @@
 import { ListItemData } from "@/types/list";
 import { NextResponse } from "next/server";
+import { testTodos } from "./data";
 
-const todos: ListItemData[] = [
-  {
-    id: "1",
-    title: "Buy groceries",
-    description: "Milk, Eggs, Bread",
-    dueDate: "2025-11-20",
-    checked: false,
-  },
-  {
-    id: "2",
-    title: "Finish project",
-    description: "Submit Next.js app",
-    dueDate: "2025-11-22",
-    checked: true,
-  },
-];
+const todos: ListItemData[] = [...testTodos];
 
 export async function GET() {
+  return NextResponse.json(todos);
+}
+
+export async function POST(request: Request) {
+  const { id, title, description, dueDate, checked } = await request.json();
+  todos.push({ id, title, description, dueDate, checked });
   return NextResponse.json(todos);
 }
 
