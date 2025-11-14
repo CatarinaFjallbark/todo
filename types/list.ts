@@ -8,4 +8,5 @@ export type ListItemData = {
 
 export type ListItemProps = {
   item: ListItemData;
+  onChange: () => void;
 };
