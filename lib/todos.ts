@@ -6,6 +6,17 @@ export async function getTodos(): Promise<ListItemData[]> {
   return res.json();
 }
 
+export async function postTodo(title: string): Promise<ListItemData> {
+  const res = await fetch("/api/todos", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ title })
+  });
+
+  if (!res.ok) throw new Error("Failed to update todo");
+  return res.json();
+}
+
 export async function toggleTodo(
   id: string,
   checked: boolean
