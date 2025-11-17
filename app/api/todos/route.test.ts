@@ -1,16 +1,24 @@
-import { GET, PATCH, POST } from "./route";
+import { GET, PATCH, POST, DELETE } from "./route";
 import { describe, it, expect, beforeEach } from "vitest";
 import { testTodos } from "./data";
 
 beforeEach(async () => {
+  await DELETE();
+
   for (const todo of testTodos) {
-    const req = new Request("http://localhost/api/todos", {
+    const reqPost = new Request("http://test/api/todos", {
       method: "POST",
+      body: JSON.stringify({ title: todo.title, id: todo.id }),
+      headers: { "Content-Type": "application/json" }
+    });
+    const reqPatch = new Request("http://test/api/todos", {
+      method: "PATCH",
       body: JSON.stringify(todo),
       headers: { "Content-Type": "application/json" }
     });
 
-    await POST(req);
+    await POST(reqPost);
+    await PATCH(reqPatch);
   }
 });
 
@@ -19,19 +27,18 @@ describe("GET /api/todos", () => {
     const res = await GET();
     const data = await res.json();
 
-    expect(data.length).toBeGreaterThan(0);
     expect(data[0]).toHaveProperty("id");
     expect(data[0]).toHaveProperty("title");
     expect(data[0]).toHaveProperty("description");
     expect(data[0]).toHaveProperty("dueDate");
     expect(data[0]).toHaveProperty("checked");
     expect(Array.isArray(data)).toBe(true);
-    expect(data.length).toBeGreaterThan(0);
+    expect(data.length).toBe(2);
   });
 
   describe("PATCH /api/todos", () => {
     it("updates the checked state", async () => {
-      const req = new Request("http://localhost", {
+      const req = new Request("http://test/api/todos", {
         method: "PATCH",
         body: JSON.stringify({ id: "1", checked: true }),
         headers: { "Content-Type": "application/json" }

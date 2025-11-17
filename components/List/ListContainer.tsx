@@ -1,17 +1,14 @@
-"use client";
-
-import { useEffect, useState } from "react";
-import ListItem from "./ListItem";
 import { ListItemData } from "@/types/list";
-import { getTodos, toggleTodo } from "@/lib/todos";
+import ListItem from "./ListItem";
+import { toggleTodo } from "@/lib/todos";
 
-export default function ListContainer() {
-  const [items, setItems] = useState<ListItemData[]>([]);
-
-  useEffect(() => {
-    getTodos().then(setItems);
-  }, []);
-
+export default function ListContainer({
+  items,
+  setItems
+}: {
+  items: ListItemData[];
+  setItems: (items: ListItemData[]) => void;
+}) {
   return (
     <ul className="w-full">
       {items.map((item) => (
@@ -20,7 +17,15 @@ export default function ListContainer() {
           item={item}
           onChange={async () => {
             const updatedTodo = await toggleTodo(item.id, !item.checked);
-            setItems(items.map((i) => (i.id === item.id ? updatedTodo : i)));
+            setItems(
+              items
+                .map((i) => (i.id === item.id ? updatedTodo : i))
+                .sort((a, b) => {
+                  const aFlag = a.checked ? 1 : 0;
+                  const bFlag = b.checked ? 1 : 0;
+                  return aFlag - bFlag;
+                })
+            );
           }}
         />
       ))}

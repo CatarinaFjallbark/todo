@@ -1,7 +1,7 @@
 "use client";
 
 import { ListItemProps } from "@/types/list";
-import Checkbox from "../CheckButton";
+import Checkbox from "./CheckBox";
 
 export default function ListItem({ item, onChange }: ListItemProps) {
   return (
@@ -14,7 +14,7 @@ export default function ListItem({ item, onChange }: ListItemProps) {
       <div className="text-sm text-gray-500">{item.dueDate}</div>
 
       <div>
-        <Checkbox checked={item.checked} onChange={onChange} />
+        <Checkbox checked={item.checked || false} onChange={onChange} />
       </div>
     </li>
   );

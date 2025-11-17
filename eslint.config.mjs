@@ -8,13 +8,13 @@ const eslintConfig = defineConfig([
   ...nextTs,
   {
     plugins: {
-      prettier: prettierPlugin,
+      prettier: prettierPlugin
     },
     rules: {
-      "prettier/prettier": ["error"],
-    },
+      "prettier/prettier": ["error"]
+    }
   },
-  globalIgnores([".next/**", "out/**", "build/**", "next-env.d.ts"]),
+  globalIgnores([".next/**", "out/**", "build/**", "next-env.d.ts"])
 ]);
 
 export default eslintConfig;
