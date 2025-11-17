@@ -15,12 +15,13 @@ export const SortContainer: React.FC<SortContainerProps> = ({
   };
 
   return (
-    <button
-      onClick={handleClick}
-      className="flex items-center gap-2 px-3 py-1 rounded-lg bg-zinc-200 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 hover:bg-zinc-300 dark:hover:bg-zinc-700 transition"
-    >
-      {isAscending ? <FaSortAmountUp /> : <FaSortAmountDown />}
-      <span className="text-sm">Sort</span>
-    </button>
+    <div className="flex items-center gap-2 p-2 rounded-xl w-full">
+      <button
+        onClick={handleClick}
+        className="flex items-center gap-2 px-3 py-1 rounded-lg bg-zinc-200 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 hover:bg-zinc-300 dark:hover:bg-zinc-700 transition ml-auto"
+      >
+        {isAscending ? <FaSortAmountUp /> : <FaSortAmountDown />}
+      </button>
+    </div>
   );
 };
