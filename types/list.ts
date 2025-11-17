@@ -9,4 +9,12 @@ export type ListItemData = {
 export type ListItemProps = {
   item: ListItemData;
   onChange: () => void;
+  onEdit: (item: ListItemData) => void;
+};
+
+export type EditContainerProps = {
+  todo: ListItemData;
+  onClose: () => void;
+  onChange: (todo: ListItemData) => void;
+  onDelete: () => void;
 };

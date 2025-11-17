@@ -14,5 +14,12 @@ export const testTodos: ListItemData[] = [
     description: "Submit Next.js app",
     dueDate: "2025-11-22",
     checked: true
+  },
+  {
+    id: "3",
+    title: "Walk the dogs",
+    description: "",
+    dueDate: "",
+    checked: false
   }
 ];

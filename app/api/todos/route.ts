@@ -3,8 +3,14 @@ import { NextResponse } from "next/server";
 
 let todos: ListItemData[] = [];
 
+const checkedLast = (a: ListItemData, b: ListItemData) => {
+  const aFlag = a.checked ? 1 : 0;
+  const bFlag = b.checked ? 1 : 0;
+  return aFlag - bFlag;
+};
+
 export async function GET() {
-  return NextResponse.json(todos);
+  return NextResponse.json(todos.sort(checkedLast));
 }
 
 export async function DELETE() {

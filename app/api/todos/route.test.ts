@@ -1,6 +1,7 @@
 import { GET, PATCH, POST, DELETE } from "./route";
 import { describe, it, expect, beforeEach } from "vitest";
 import { testTodos } from "./data";
+import { desc } from "framer-motion/client";
 
 beforeEach(async () => {
   await DELETE();
@@ -33,21 +34,31 @@ describe("GET /api/todos", () => {
     expect(data[0]).toHaveProperty("dueDate");
     expect(data[0]).toHaveProperty("checked");
     expect(Array.isArray(data)).toBe(true);
-    expect(data.length).toBe(2);
+    expect(data.length).toBe(3);
   });
+});
 
-  describe("PATCH /api/todos", () => {
-    it("updates the checked state", async () => {
-      const req = new Request("http://test/api/todos", {
-        method: "PATCH",
-        body: JSON.stringify({ id: "1", checked: true }),
-        headers: { "Content-Type": "application/json" }
-      });
-
-      const res = await PATCH(req);
-      const data = await res.json();
-
-      expect(data.checked).toBe(true);
+describe("PATCH /api/todos", () => {
+  it("updates the checked state", async () => {
+    const req = new Request("http://test/api/todos", {
+      method: "PATCH",
+      body: JSON.stringify({ id: "1", checked: true }),
+      headers: { "Content-Type": "application/json" }
     });
+
+    const res = await PATCH(req);
+    const data = await res.json();
+
+    expect(data.checked).toBe(true);
+  });
+});
+
+describe("Sorting", () => {
+  it("returns todos with checked items last", async () => {
+    const res = await GET();
+    const data = await res.json();
+    expect(data[0].checked).toBe(false);
+    expect(data[1].checked).toBe(false);
+    expect(data[2].checked).toBe(true);
   });
 });

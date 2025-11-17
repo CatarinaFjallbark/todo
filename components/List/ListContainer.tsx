@@ -1,13 +1,15 @@
 import { ListItemData } from "@/types/list";
 import ListItem from "./ListItem";
-import { toggleTodo } from "@/lib/todos";
+import { getTodos, toggleTodo } from "@/lib/todos";
 
 export default function ListContainer({
   items,
-  setItems
+  setItems,
+  onEdit
 }: {
   items: ListItemData[];
   setItems: (items: ListItemData[]) => void;
+  onEdit: (item: ListItemData) => void;
 }) {
   return (
     <ul className="w-full">
@@ -15,17 +17,10 @@ export default function ListContainer({
         <ListItem
           key={item.id}
           item={item}
+          onEdit={onEdit}
           onChange={async () => {
-            const updatedTodo = await toggleTodo(item.id, !item.checked);
-            setItems(
-              items
-                .map((i) => (i.id === item.id ? updatedTodo : i))
-                .sort((a, b) => {
-                  const aFlag = a.checked ? 1 : 0;
-                  const bFlag = b.checked ? 1 : 0;
-                  return aFlag - bFlag;
-                })
-            );
+            await toggleTodo(item.id, !item.checked);
+            setItems(await getTodos());
           }}
         />
       ))}

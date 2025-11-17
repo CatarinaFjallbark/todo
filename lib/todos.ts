@@ -30,3 +30,14 @@ export async function toggleTodo(
   if (!res.ok) throw new Error("Failed to update todo");
   return res.json();
 }
+
+export async function editTodo(todo: ListItemData): Promise<ListItemData> {
+  const res = await fetch("/api/todos", {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ ...todo })
+  });
+
+  if (!res.ok) throw new Error("Failed to update todo");
+  return res.json();
+}
