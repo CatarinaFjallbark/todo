@@ -4,7 +4,7 @@ import { FaRegPlusSquare } from "react-icons/fa";
 export default function InputContainer({
   onAdd
 }: {
-  onAdd: (e: { key: string }, text: string) => void;
+  onAdd: (title: string) => void;
 }) {
   const [text, setText] = useState("");
 
@@ -17,7 +17,7 @@ export default function InputContainer({
         onChange={(e) => setText(e.target.value)}
         onKeyDown={(e) => {
           if (e.key === "Enter") {
-            onAdd(e, text);
+            onAdd(text);
             setText("");
           }
         }}

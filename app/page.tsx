@@ -1,6 +1,12 @@
 "use client";
 
-import { getTodos, postTodo, editTodo } from "@/lib/todos";
+import {
+  getTodos,
+  postTodo,
+  editTodo,
+  toggleTodo,
+  deleteTodo
+} from "@/lib/todos";
 import InputContainer from "@/components/Input/InputContainer";
 import ListContainer from "@/components/List/ListContainer";
 import { useEffect, useState } from "react";
@@ -9,18 +15,26 @@ import EditContainer from "@/components/Edit/EditContainer";
 
 export default function Home() {
   const [items, setItems] = useState<ListItemData[]>([]);
-  const [edit, setEdit] = useState<ListItemData | undefined>(undefined);
+  const [edit, setEdit] = useState<ListItemData | undefined>();
 
-  const onAdd = async (e: { key: string }, text: string) => {
-    const newTodo = await postTodo(text.trim());
-    setItems([newTodo, ...items]);
+  const onAdd = async (title: string) => {
+    await postTodo(title.trim());
+    setItems(await getTodos());
   };
   const onEdit = async (todo: ListItemData) => {
-    const editedTodo = await editTodo(todo);
+    await editTodo(todo);
+    setItems(await getTodos());
+  };
 
-    setItems((prevItems) =>
-      prevItems.map((item) => (item.id === editedTodo.id ? editedTodo : item))
-    );
+  const onToggle = async (todo: ListItemData) => {
+    await toggleTodo(todo.id, !todo.checked);
+    setItems(await getTodos());
+  };
+
+  const onDelete = async (todo: ListItemData) => {
+    setEdit(undefined);
+    await deleteTodo(todo.id);
+    setItems(await getTodos());
   };
 
   useEffect(() => {
@@ -34,7 +48,7 @@ export default function Home() {
             todo={edit}
             onClose={() => setEdit(undefined)}
             onChange={onEdit}
-            onDelete={() => {}}
+            onDelete={onDelete}
           />
         )}
         <InputContainer onAdd={onAdd} />
@@ -42,6 +56,7 @@ export default function Home() {
           items={items}
           setItems={setItems}
           onEdit={(todo: ListItemData) => setEdit(todo)}
+          onToggle={onToggle}
         />
       </main>
     </div>

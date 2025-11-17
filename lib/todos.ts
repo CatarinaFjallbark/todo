@@ -6,6 +6,16 @@ export async function getTodos(): Promise<ListItemData[]> {
   return res.json();
 }
 
+export async function deleteTodo(id: string) {
+  const res = await fetch("/api/todos", {
+    method: "DELETE",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ id })
+  });
+
+  if (!res.ok) throw new Error("Failed to delete todo");
+}
+
 export async function postTodo(title: string): Promise<ListItemData> {
   const res = await fetch("/api/todos", {
     method: "POST",

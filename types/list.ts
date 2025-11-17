@@ -16,5 +16,5 @@ export type EditContainerProps = {
   todo: ListItemData;
   onClose: () => void;
   onChange: (todo: ListItemData) => void;
-  onDelete: () => void;
+  onDelete: (todo: ListItemData) => void;
 };

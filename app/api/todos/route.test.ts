@@ -1,10 +1,9 @@
-import { GET, PATCH, POST, DELETE } from "./route";
+import { GET, PATCH, POST, RESET } from "./route";
 import { describe, it, expect, beforeEach } from "vitest";
 import { testTodos } from "./data";
-import { desc } from "framer-motion/client";
 
 beforeEach(async () => {
-  await DELETE();
+  await RESET();
 
   for (const todo of testTodos) {
     const reqPost = new Request("http://test/api/todos", {

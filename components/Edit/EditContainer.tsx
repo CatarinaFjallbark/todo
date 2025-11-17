@@ -15,7 +15,6 @@ export default function EditContainer({
   );
   const [dueDate, setDueDate] = useState<string>(todo.dueDate || "");
   const close = useCallback(() => {
-    console.log("onClose", title, description);
     onChange({
       ...todo,
       title,
@@ -31,7 +30,6 @@ export default function EditContainer({
   }, [todo, title, description, dueDate, onChange, onClose]);
 
   useEffect(() => {
-    console.log("todo", todo?.title);
     const handler = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         close();
@@ -91,7 +89,7 @@ export default function EditContainer({
         </div>
 
         <button
-          onClick={onDelete}
+          onClick={() => onDelete(todo)}
           className="ml-auto inline-flex items-center gap-2 text-zinc-600 border border-zinc-400 rounded-lg px-3 py-1 hover:bg-zinc-300 hover:text-black transition"
         >
           <FaTrash />
