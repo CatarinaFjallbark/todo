@@ -1,7 +1,7 @@
 import { FaTrash } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { useCallback, useEffect, useState } from "react";
-import { EditContainerProps } from "@/types/list";
+import { EditContainerProps } from "@/types/todo";
 
 export default function EditContainer({
   todo,

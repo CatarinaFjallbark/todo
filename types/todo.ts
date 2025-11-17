@@ -6,6 +6,15 @@ export type ListItemData = {
   checked?: boolean;
 };
 
+export type PaginationData = {
+  page: number;
+  totalPages: number;
+};
+
+export type ListItemsPaginationData = PaginationData & {
+  items: ListItemData[];
+};
+
 export type ListItemProps = {
   item: ListItemData;
   onChange: () => void;
@@ -17,4 +26,10 @@ export type EditContainerProps = {
   onClose: () => void;
   onChange: (todo: ListItemData) => void;
   onDelete: (todo: ListItemData) => void;
+};
+
+export type PaginationProps = {
+  totalPages: number;
+  currentPage: number | undefined;
+  onPageChange: (page: number) => void;
 };

@@ -5,40 +5,63 @@ import {
   postTodo,
   editTodo,
   toggleTodo,
-  deleteTodo
+  deleteTodo,
+  setPagination
 } from "@/lib/todos";
 import InputContainer from "@/components/Input/InputContainer";
 import ListContainer from "@/components/List/ListContainer";
 import { useEffect, useState } from "react";
-import { ListItemData } from "@/types/list";
+import { ListItemData } from "@/types/todo";
 import EditContainer from "@/components/Edit/EditContainer";
+import { PaginationContainer } from "@/components/Pagination/PaginationContainer";
 
 export default function Home() {
   const [items, setItems] = useState<ListItemData[]>([]);
   const [edit, setEdit] = useState<ListItemData | undefined>();
+  const [currentPage, setPage] = useState(1);
+  const [totalPages, setTotalPagesPage] = useState(1);
+
+  const setData = async () => {
+    const data = await getTodos(currentPage);
+    setItems(data.items);
+    setTotalPagesPage(data.totalPages);
+  };
 
   const onAdd = async (title: string) => {
     await postTodo(title.trim());
-    setItems(await getTodos());
+    setData();
   };
   const onEdit = async (todo: ListItemData) => {
     await editTodo(todo);
-    setItems(await getTodos());
+    setData();
   };
 
   const onToggle = async (todo: ListItemData) => {
     await toggleTodo(todo.id, !todo.checked);
-    setItems(await getTodos());
+    setData();
   };
 
   const onDelete = async (todo: ListItemData) => {
+    // close edit view
     setEdit(undefined);
     await deleteTodo(todo.id);
-    setItems(await getTodos());
+    setData();
+  };
+
+  const onPageChange = async (newPage: number) => {
+    // close edit view
+    setEdit(undefined);
+    const res = await setPagination(newPage);
+    setItems(res.items);
+    setPage(res.page);
+    setTotalPagesPage(res.totalPages);
   };
 
   useEffect(() => {
-    getTodos().then(setItems);
+    const load = async () => {
+      setData();
+    };
+    load();
   }, []);
   return (
     <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
@@ -58,6 +81,13 @@ export default function Home() {
           onEdit={(todo: ListItemData) => setEdit(todo)}
           onToggle={onToggle}
         />
+        {totalPages > 1 && (
+          <PaginationContainer
+            totalPages={totalPages}
+            currentPage={currentPage}
+            onPageChange={onPageChange}
+          />
+        )}
       </main>
     </div>
   );

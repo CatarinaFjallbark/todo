@@ -1,6 +1,7 @@
-import { GET, PATCH, POST, RESET } from "./route";
+import { GET, PATCH, POST, RESET, pageLimit } from "./route";
 import { describe, it, expect, beforeEach } from "vitest";
 import { testTodos } from "./data";
+import { ListItemData } from "@/types/todo";
 
 beforeEach(async () => {
   await RESET();
@@ -24,8 +25,10 @@ beforeEach(async () => {
 
 describe("GET /api/todos", () => {
   it("returns todos", async () => {
-    const res = await GET();
-    const data = await res.json();
+    const req = new Request("http://test/api/todos?page=1");
+    const res = await GET(req);
+
+    const { data } = await res.json();
 
     expect(data[0]).toHaveProperty("id");
     expect(data[0]).toHaveProperty("title");
@@ -33,7 +36,7 @@ describe("GET /api/todos", () => {
     expect(data[0]).toHaveProperty("dueDate");
     expect(data[0]).toHaveProperty("checked");
     expect(Array.isArray(data)).toBe(true);
-    expect(data.length).toBe(3);
+    expect(data.length).toBe(testTodos.length);
   });
 });
 
@@ -54,10 +57,31 @@ describe("PATCH /api/todos", () => {
 
 describe("Sorting", () => {
   it("returns todos with checked items last", async () => {
-    const res = await GET();
-    const data = await res.json();
+    const req = new Request("http://test/api/todos?page=1");
+    const res = await GET(req);
+    const { data } = await res.json();
     expect(data[0].checked).toBe(false);
     expect(data[1].checked).toBe(false);
     expect(data[2].checked).toBe(true);
+  });
+});
+
+describe("Pagination", () => {
+  it("returns the correct page of todos", async () => {
+    const reqPage1 = new Request(`http://test/api/todos?page=1`);
+    const res1 = await GET(reqPage1);
+    const { data: dataPage1, pagination: pagination1 } = await res1.json();
+
+    expect(dataPage1.length).toBeLessThanOrEqual(pageLimit);
+
+    expect(pagination1.page).toBe(1);
+    expect(pagination1.totalPages).toBe(
+      Math.ceil(testTodos.length / pageLimit)
+    );
+    const reqPage2 = new Request(`http://test/api/todos?page=2`);
+    const res2 = await GET(reqPage2);
+    const { data: dataPage2 } = await res2.json();
+
+    expect(dataPage2.length).toBeLessThanOrEqual(pageLimit);
   });
 });
