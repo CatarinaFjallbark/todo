@@ -1,9 +1,38 @@
-import { ListItemData } from "@/types/list";
+import {
+  ListItemData,
+  PaginationData,
+  ListItemsPaginationData
+} from "@/types/todo";
 
-export async function getTodos(): Promise<ListItemData[]> {
+export async function getTodos(page: number): Promise<ListItemsPaginationData> {
+  const res = await fetch(`/api/todos?page=${page}`);
+  const { data, pagination } = await res.json();
+  if (!res.ok || !data) throw new Error("Failed to fetch todos");
+  return {
+    items: data,
+    page: pagination.page,
+    totalPages: pagination.totalPages
+  };
+}
+
+export async function getPagination(): Promise<PaginationData> {
   const res = await fetch("/api/todos");
+  const { pagination } = await res.json();
   if (!res.ok) throw new Error("Failed to fetch todos");
-  return res.json();
+  return pagination;
+}
+
+export async function setPagination(
+  page: number
+): Promise<ListItemsPaginationData> {
+  const res = await fetch(`/api/todos?page=${page}`);
+  const { pagination, data } = await res.json();
+  if (!res.ok || !data) throw new Error("Failed to set pagination");
+  return {
+    page: pagination.page,
+    totalPages: pagination.totalPages,
+    items: data
+  };
 }
 
 export async function deleteTodo(id: string) {

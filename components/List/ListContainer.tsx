@@ -1,4 +1,4 @@
-import { ListItemData } from "@/types/list";
+import { ListItemData } from "@/types/todo";
 import ListItem from "./ListItem";
 
 export default function ListContainer({

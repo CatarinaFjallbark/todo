@@ -1,6 +1,6 @@
 "use client";
 
-import { ListItemProps } from "@/types/list";
+import { ListItemProps } from "@/types/todo";
 import Checkbox from "./CheckBox";
 
 export default function ListItem({ item, onChange, onEdit }: ListItemProps) {

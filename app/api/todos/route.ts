@@ -1,4 +1,4 @@
-import { ListItemData } from "@/types/list";
+import { ListItemData } from "@/types/todo";
 import { NextResponse } from "next/server";
 
 let todos: ListItemData[] = [];
@@ -9,8 +9,31 @@ const checkedLast = (a: ListItemData, b: ListItemData) => {
   return aFlag - bFlag;
 };
 
-export async function GET() {
-  return NextResponse.json(todos.sort(checkedLast));
+export const pageLimit = 10;
+
+export async function GET(request: Request) {
+  const url = new URL(request.url);
+  const param = url.searchParams.get("page");
+
+  const page = param ? Math.max(1, parseInt(param, 10)) : 1;
+
+  const sorted = todos.sort(checkedLast);
+  const totalPages = Math.ceil(sorted.length / pageLimit);
+
+  const safePage = Math.min(page, totalPages === 0 ? 1 : totalPages);
+
+  const start = (safePage - 1) * pageLimit;
+  const end = start + pageLimit;
+
+  const paginated = sorted.slice(start, end);
+
+  return NextResponse.json({
+    data: paginated,
+    pagination: {
+      page: safePage,
+      totalPages
+    }
+  });
 }
 
 export async function RESET() {
