@@ -3,13 +3,28 @@ import { NextResponse } from "next/server";
 
 let todos: ListItemData[] = [];
 
+const checkedLast = (a: ListItemData, b: ListItemData) => {
+  const aFlag = a.checked ? 1 : 0;
+  const bFlag = b.checked ? 1 : 0;
+  return aFlag - bFlag;
+};
+
 export async function GET() {
+  return NextResponse.json(todos.sort(checkedLast));
+}
+
+export async function RESET() {
+  todos = [];
   return NextResponse.json(todos);
 }
 
-export async function DELETE() {
-  todos = [];
-  return NextResponse.json(todos);
+export async function DELETE(request: Request) {
+  const { id } = await request.json();
+  if (!id || typeof id !== "string") {
+    return NextResponse.json({ error: "Id is required" }, { status: 400 });
+  }
+  todos = todos.filter((t) => t.id !== id);
+  return new Response(null, { status: 204 });
 }
 
 export async function POST(request: Request) {
@@ -23,15 +38,16 @@ export async function POST(request: Request) {
     id: id || crypto.randomUUID(),
     title
   };
-
-  todos.push(newTodo);
+  todos = [newTodo, ...todos];
 
   return NextResponse.json(newTodo, { status: 201 });
 }
 
 export async function PATCH(request: Request) {
   const { id, checked, title, description, dueDate } = await request.json();
-
+  if (!id || typeof id !== "string") {
+    return NextResponse.json({ error: "Id is required" }, { status: 400 });
+  }
   const index = todos.findIndex((t) => t.id === id);
   if (index === -1) {
     return NextResponse.json({ error: "Todo not found" }, { status: 404 });

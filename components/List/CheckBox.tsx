@@ -11,7 +11,11 @@ export default function Checkbox({ checked, onChange }: RoundCheckboxProps) {
   return (
     <div
       role="checkbox"
-      onClick={() => onChange(!checked)}
+      onClick={(e) => {
+        // Needed to hinder edit view from open
+        e.stopPropagation();
+        onChange(!checked);
+      }}
       className="flex items-center justify-center focus:outline-none"
       aria-checked={checked}
     >

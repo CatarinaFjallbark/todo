@@ -3,9 +3,12 @@
 import { ListItemProps } from "@/types/list";
 import Checkbox from "./CheckBox";
 
-export default function ListItem({ item, onChange }: ListItemProps) {
+export default function ListItem({ item, onChange, onEdit }: ListItemProps) {
   return (
-    <li className="grid grid-cols-[1fr_auto_auto] gap-4 p-2 border-b border-gray-200 items-center">
+    <li
+      onClick={() => onEdit(item)}
+      className="grid grid-cols-[1fr_auto_auto] gap-4 p-2 border-b border-gray-200 items-center"
+    >
       <div className="flex flex-col">
         <b className="text-lg">{item.title}</b>
         <span className="text-gray-600">{item.description}</span>
