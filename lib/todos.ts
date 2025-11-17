@@ -15,13 +15,6 @@ export async function getTodos(page: number): Promise<ListItemsPaginationData> {
   };
 }
 
-export async function getPagination(): Promise<PaginationData> {
-  const res = await fetch("/api/todos");
-  const { pagination } = await res.json();
-  if (!res.ok) throw new Error("Failed to fetch todos");
-  return pagination;
-}
-
 export async function setPagination(
   page: number
 ): Promise<ListItemsPaginationData> {

@@ -6,7 +6,6 @@ import {
   editTodo,
   toggleTodo,
   deleteTodo,
-  getPagination,
   setPagination
 } from "@/lib/todos";
 import InputContainer from "@/components/Input/InputContainer";
@@ -25,9 +24,7 @@ export default function Home() {
   const setData = async () => {
     const data = await getTodos(currentPage);
     setItems(data.items);
-    const pagination = await getPagination();
-    console.log("setData", pagination);
-    setTotalPagesPage(pagination.totalPages);
+    setTotalPagesPage(data.totalPages);
   };
 
   const onAdd = async (title: string) => {
