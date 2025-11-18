@@ -87,21 +87,23 @@ export const EditContainer = ({
             className="border border-zinc-300 dark:border-zinc-700 rounded-lg p-2 focus:outline-none"
           />
         </div>
-
-        <button
-          onClick={() => close()}
-          className="ml-auto inline-flex items-center gap-2 text-zinc-600 border border-zinc-400 rounded-lg px-3 py-1 hover:bg-zinc-300 hover:text-black transition"
-        >
-          <FaSave />
-          Save
-        </button>
-        <button
-          onClick={() => onDelete(todo)}
-          className="ml-auto inline-flex items-center gap-2 text-zinc-600 border border-zinc-400 rounded-lg px-3 py-1 hover:bg-zinc-300 hover:text-black transition"
-        >
-          <FaTrash />
-          Delete
-        </button>
+        <div className="flex gap-2">
+          <button
+            onClick={() => onDelete(todo)}
+            className="ml-auto inline-flex items-center gap-2 text-zinc-600 border border-zinc-400 rounded-lg px-3 py-1 hover:bg-zinc-300 hover:text-black transition"
+          >
+            <FaTrash />
+            Delete
+          </button>
+          <div className="flex-1" />
+          <button
+            onClick={() => close()}
+            className="ml-auto inline-flex items-center gap-2 text-zinc-600 border border-zinc-400 rounded-lg px-3 py-1 hover:bg-zinc-300 hover:text-black transition"
+          >
+            <FaSave />
+            Save
+          </button>
+        </div>
       </motion.div>
     </>
   );

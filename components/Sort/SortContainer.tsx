@@ -21,7 +21,11 @@ export const SortContainer = ({
         className="flex items-center justify-center w-full h-full
           text-zinc-900 dark:text-zinc-100"
       >
-        {checkedLast ? <FaSortAmountDown /> : <FaSortAmountUp />}
+        {checkedLast ? (
+          <FaSortAmountDown className="w-5 h-5" />
+        ) : (
+          <FaSortAmountUp className="w-5 h-5" />
+        )}
       </button>
     </div>
   );
