@@ -14,12 +14,16 @@ import { useEffect, useState } from "react";
 import { ListItemData } from "@/types/todo";
 import EditContainer from "@/components/Edit/EditContainer";
 import { PaginationContainer } from "@/components/Pagination/PaginationContainer";
+import { SearchContainer } from "@/components/Search/SearchContainer";
+import { SortContainer } from "@/components/Sort/SortContainer";
 
 export default function Home() {
   const [items, setItems] = useState<ListItemData[]>([]);
   const [edit, setEdit] = useState<ListItemData | undefined>();
   const [currentPage, setPage] = useState(1);
   const [totalPages, setTotalPagesPage] = useState(1);
+  const [search, setSearch] = useState("");
+  const [sortASC, setSort] = useState(false);
 
   const setData = async () => {
     const data = await getTodos(currentPage);
@@ -48,6 +52,10 @@ export default function Home() {
     setData();
   };
 
+  const onSort = () => {
+    return sortASC ? items : [...items].reverse();
+  };
+
   const onPageChange = async (newPage: number) => {
     // close edit view
     setEdit(undefined);
@@ -66,6 +74,13 @@ export default function Home() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
       <main className="flex min-h-screen w-full max-w-3xl flex-col gap-8 items-center py-32 px-16 bg-white dark:bg-black sm:items-start">
+        <SearchContainer value={search} onChange={setSearch} />
+        <SortContainer
+          ascending={sortASC}
+          onToggle={() => {
+            setSort(!sortASC);
+          }}
+        />
         {edit && (
           <EditContainer
             todo={edit}
@@ -76,7 +91,7 @@ export default function Home() {
         )}
         <InputContainer onAdd={onAdd} />
         <ListContainer
-          items={items}
+          items={onSort().filter((item) => item.title.startsWith(search))}
           setItems={setItems}
           onEdit={(todo: ListItemData) => setEdit(todo)}
           onToggle={onToggle}

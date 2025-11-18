@@ -33,3 +33,13 @@ export type PaginationProps = {
   currentPage: number | undefined;
   onPageChange: (page: number) => void;
 };
+
+export type SearchInputProps = {
+  value: string;
+  onChange: (newValue: string) => void;
+};
+
+export type SortContainerProps = {
+  ascending?: boolean;
+  onToggle: (ascending: boolean) => void;
+};
