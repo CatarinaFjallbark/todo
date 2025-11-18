@@ -1,7 +1,6 @@
 import { GET, PATCH, POST, RESET, pageLimit } from "./route";
 import { describe, it, expect, beforeEach } from "vitest";
 import { testTodos } from "./data";
-import { ListItemData } from "@/types/todo";
 
 beforeEach(async () => {
   await RESET();

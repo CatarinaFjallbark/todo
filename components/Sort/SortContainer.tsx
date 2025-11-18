@@ -3,14 +3,11 @@ import React, { useState } from "react";
 import { FaSortAmountUp, FaSortAmountDown } from "react-icons/fa";
 
 export const SortContainer: React.FC<SortContainerProps> = ({
-  ascending = true,
+  checkedLast,
   onToggle
 }) => {
-  const [isAscending, setIsAscending] = useState(ascending);
-
   const handleClick = () => {
-    const newOrder = !isAscending;
-    setIsAscending(newOrder);
+    const newOrder = !checkedLast;
     onToggle(newOrder);
   };
 
@@ -23,7 +20,7 @@ export const SortContainer: React.FC<SortContainerProps> = ({
              hover:bg-zinc-200 dark:hover:bg-zinc-800
              transition ml-auto"
       >
-        {isAscending ? <FaSortAmountUp /> : <FaSortAmountDown />}
+        {checkedLast ? <FaSortAmountDown /> : <FaSortAmountUp />}
       </button>
     </div>
   );

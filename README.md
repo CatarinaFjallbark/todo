@@ -1,36 +1,70 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# My todo app
+Welcome to my todo app created with Next.js. The frontend is build with React components and Tailwind CSS and the backend is a REST API using Next.js API routes for managing todos.
 
-## Getting Started
+The reason for using Next.js is because it is convinient to use for a basic fullstack application. I have never used Tailwind before but it was the default settings when I created the application and I wanted to try it. Vitest is commonly used so I used it for testing and Swagger is easy and well used for API documentation. 
 
-First, run the development server:
+## How to
+
+Run the application locally:
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+```
+
+Run tests:
+
+```bash
+npm run test
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Deployment
+This app is deployed on Vercel and every push to the main branch will trigger a new deploy.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+https://todo-two-theta-87.vercel.app/
 
-## Learn More
+## Usage
+* add todo by entering title and press enter
+* to edit a todo you press the title and the edit view will open, in order to save your edits you press outside or ESC the view.
 
-To learn more about Next.js, take a look at the following resources:
+## Architecture
+The frontend is created with several components that is explained below:
+* search field
+    - search titles of added todos
+* sort button
+    - inverts the list in view
+* add todo field
+    - only title will be added
+* todo list
+    - list of added todos
+* edit
+    - edit title, add description and due date 
+* pagination
+    - only visible when more than ten todos, horisontable scrollable when needed.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The backend
+* REST
+* Pagination
+* Sort checked last
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Tests
+Some basic tests of the routes are implemented with vitest. Before each test the data is reset and then three diffent todos are added. Of course a more complete set of tests should be added for the application to be production ready. I have not implemented any unit och component test for this assignment but that can also be done for a real application.
 
-## Deploy on Vercel
+## Documentation
+/docs will show the API documentation in Swagger.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Developer experience
+* linting with eslint
+* prettier
+* node version 24.11.0
+* tests run on push with Github action
+* API documentation with Swagger
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Further development
+* error handling
+
+* UX improvement
+
+* Keyboard commands
