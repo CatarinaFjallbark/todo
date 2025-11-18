@@ -23,8 +23,9 @@ export default function Home() {
   const [currentPage, setPage] = useState(1);
   const [totalPages, setTotalPagesPage] = useState(1);
   const [search, setSearch] = useState("");
-  const [sortASC, setSort] = useState(false);
+  const [sortCheckedLast, setSort] = useState(true);
 
+  // updates local state
   const setData = async () => {
     const data = await getTodos(currentPage);
     setItems(data.items);
@@ -53,7 +54,7 @@ export default function Home() {
   };
 
   const onSort = () => {
-    return sortASC ? items : [...items].reverse();
+    return sortCheckedLast ? items : [...items].reverse();
   };
 
   const onPageChange = async (newPage: number) => {
@@ -76,9 +77,9 @@ export default function Home() {
       <main className="flex min-h-screen w-full max-w-3xl flex-col gap-8 items-center py-32 px-16 bg-white dark:bg-black sm:items-start">
         <SearchContainer value={search} onChange={setSearch} />
         <SortContainer
-          ascending={sortASC}
+          checkedLast={sortCheckedLast}
           onToggle={() => {
-            setSort(!sortASC);
+            setSort(!sortCheckedLast);
           }}
         />
         {edit && (

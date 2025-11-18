@@ -40,6 +40,6 @@ export type SearchInputProps = {
 };
 
 export type SortContainerProps = {
-  ascending?: boolean;
+  checkedLast?: boolean;
   onToggle: (ascending: boolean) => void;
 };
