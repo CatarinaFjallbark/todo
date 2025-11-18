@@ -27,7 +27,7 @@ https://todo-two-theta-87.vercel.app/
 
 ## Usage
 * add todo by entering title and press enter
-* to edit a todo you press the title and the edit view will open, in order to save your edits you press outside or ESC the view.
+* to edit a todo you press the title and the edit view will open, in order to save your edits you press outside, ESC the view och press SAVE. Initially my plan was to not have a save button but needed in mobile view.
 
 ## Architecture
 The frontend is created with several components that is explained below:

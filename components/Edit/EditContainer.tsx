@@ -1,4 +1,4 @@
-import { FaTrash } from "react-icons/fa";
+import { FaTrash, FaSave } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { useCallback, useEffect, useState } from "react";
 import { EditContainerProps } from "@/types/todo";
@@ -88,6 +88,13 @@ export const EditContainer = ({
           />
         </div>
 
+        <button
+          onClick={() => close()}
+          className="ml-auto inline-flex items-center gap-2 text-zinc-600 border border-zinc-400 rounded-lg px-3 py-1 hover:bg-zinc-300 hover:text-black transition"
+        >
+          <FaSave />
+          Save
+        </button>
         <button
           onClick={() => onDelete(todo)}
           className="ml-auto inline-flex items-center gap-2 text-zinc-600 border border-zinc-400 rounded-lg px-3 py-1 hover:bg-zinc-300 hover:text-black transition"
