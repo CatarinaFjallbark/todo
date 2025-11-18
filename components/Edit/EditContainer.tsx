@@ -3,12 +3,12 @@ import { motion } from "framer-motion";
 import { useCallback, useEffect, useState } from "react";
 import { EditContainerProps } from "@/types/todo";
 
-export default function EditContainer({
+export const EditContainer = ({
   todo,
   onClose,
   onChange,
   onDelete
-}: EditContainerProps) {
+}: EditContainerProps) => {
   const [title, setTitle] = useState<string>(todo.title);
   const [description, setDescription] = useState<string>(
     todo.description || ""
@@ -98,4 +98,4 @@ export default function EditContainer({
       </motion.div>
     </>
   );
-}
+};

@@ -1,11 +1,8 @@
+import { InputContainerProps } from "@/types/todo";
 import { useState } from "react";
 import { FaRegPlusSquare } from "react-icons/fa";
 
-export default function InputContainer({
-  onAdd
-}: {
-  onAdd: (title: string) => void;
-}) {
+export const InputContainer = ({ onAdd }: InputContainerProps) => {
   const [text, setText] = useState("");
 
   return (
@@ -26,4 +23,4 @@ export default function InputContainer({
       />
     </div>
   );
-}
+};
