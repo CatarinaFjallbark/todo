@@ -18,7 +18,10 @@ export const SortContainer: React.FC<SortContainerProps> = ({
     <div className="flex items-center gap-2 p-2 rounded-xl w-full">
       <button
         onClick={handleClick}
-        className="flex items-center gap-2 px-3 py-1 rounded-lg bg-zinc-200 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 hover:bg-zinc-300 dark:hover:bg-zinc-700 transition ml-auto"
+        className="flex items-center gap-2 px-3 py-1 rounded-lg border border-zinc-300 dark:border-zinc-700
+             text-zinc-900 dark:text-zinc-100
+             hover:bg-zinc-200 dark:hover:bg-zinc-800
+             transition ml-auto"
       >
         {isAscending ? <FaSortAmountUp /> : <FaSortAmountDown />}
       </button>
