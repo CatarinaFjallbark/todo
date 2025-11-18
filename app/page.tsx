@@ -84,7 +84,7 @@ export default function Home() {
       <main className="flex min-h-screen w-full max-w-3xl flex-col gap-8 items-center py-32 px-16 bg-white dark:bg-black sm:items-start">
         <div className="flex flex-col w-full gap-8 flex-1">
           <div className="flex w-full gap-4">
-            <div className="flex-[4]">
+            <div className="flex-[9]">
               <SearchContainer value={search} onChange={setSearch} />
             </div>
 

@@ -1,5 +1,4 @@
 import { PaginationProps } from "@/types/todo";
-import React from "react";
 
 export const PaginationContainer = ({
   totalPages,
