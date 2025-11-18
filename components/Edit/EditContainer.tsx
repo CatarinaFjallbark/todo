@@ -18,7 +18,7 @@ export default function EditContainer({
     onChange({
       ...todo,
       title,
-      // Making sure that the values stay persisten if no change is made
+      // Making sure that the values stay persistent if no change is made
       description:
         todo.description === undefined && description === ""
           ? undefined
