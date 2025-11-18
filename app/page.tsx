@@ -6,13 +6,15 @@ import {
   editTodo,
   toggleTodo,
   deleteTodo,
-  setPagination
+  setPagination,
+  addTestTodos
 } from "@/lib/todos";
-import InputContainer from "@/components/Input/InputContainer";
-import ListContainer from "@/components/List/ListContainer";
+import { InputContainer } from "@/components/Input/InputContainer";
+import { ListContainer } from "@/components/List/ListContainer";
+import { UploadButton } from "@/components/Upload/UploadButton";
 import { useEffect, useState } from "react";
 import { ListItemData } from "@/types/todo";
-import EditContainer from "@/components/Edit/EditContainer";
+import { EditContainer } from "@/components/Edit/EditContainer";
 import { PaginationContainer } from "@/components/Pagination/PaginationContainer";
 import { SearchContainer } from "@/components/Search/SearchContainer";
 import { SortContainer } from "@/components/Sort/SortContainer";
@@ -34,6 +36,11 @@ export default function Home() {
 
   const onAdd = async (title: string) => {
     await postTodo(title.trim());
+    setData();
+  };
+
+  const onAddTestdata = async () => {
+    await addTestTodos();
     setData();
   };
   const onEdit = async (todo: ListItemData) => {
@@ -75,35 +82,46 @@ export default function Home() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
       <main className="flex min-h-screen w-full max-w-3xl flex-col gap-8 items-center py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <SearchContainer value={search} onChange={setSearch} />
-        <SortContainer
-          checkedLast={sortCheckedLast}
-          onToggle={() => {
-            setSort(!sortCheckedLast);
-          }}
-        />
-        {edit && (
-          <EditContainer
-            todo={edit}
-            onClose={() => setEdit(undefined)}
-            onChange={onEdit}
-            onDelete={onDelete}
+        <div className="flex flex-col w-full gap-8 flex-1">
+          <div className="flex w-full gap-4">
+            <div className="flex-[4]">
+              <SearchContainer value={search} onChange={setSearch} />
+            </div>
+
+            <div className="flex-[1]">
+              <SortContainer
+                checkedLast={sortCheckedLast}
+                onToggle={() => {
+                  setSort(!sortCheckedLast);
+                }}
+              />
+            </div>
+          </div>
+          {edit && (
+            <EditContainer
+              todo={edit}
+              onClose={() => setEdit(undefined)}
+              onChange={onEdit}
+              onDelete={onDelete}
+            />
+          )}
+          <InputContainer onAdd={onAdd} />
+          <ListContainer
+            items={onSort().filter((item) => item.title.startsWith(search))}
+            setItems={setItems}
+            onEdit={(todo: ListItemData) => setEdit(todo)}
+            onToggle={onToggle}
           />
-        )}
-        <InputContainer onAdd={onAdd} />
-        <ListContainer
-          items={onSort().filter((item) => item.title.startsWith(search))}
-          setItems={setItems}
-          onEdit={(todo: ListItemData) => setEdit(todo)}
-          onToggle={onToggle}
-        />
-        {totalPages > 1 && (
-          <PaginationContainer
-            totalPages={totalPages}
-            currentPage={currentPage}
-            onPageChange={onPageChange}
-          />
-        )}
+          {totalPages > 1 && (
+            <PaginationContainer
+              totalPages={totalPages}
+              currentPage={currentPage}
+              onPageChange={onPageChange}
+            />
+          )}
+        </div>
+
+        <UploadButton onClick={() => onAddTestdata()} className="mt-auto" />
       </main>
     </div>
   );

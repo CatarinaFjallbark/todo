@@ -1,16 +1,11 @@
-import { ListItemData } from "@/types/todo";
+import { ListContainerProps } from "@/types/todo";
 import ListItem from "./ListItem";
 
-export default function ListContainer({
+export const ListContainer = ({
   items,
   onEdit,
   onToggle
-}: {
-  items: ListItemData[];
-  setItems: (items: ListItemData[]) => void;
-  onEdit: (item: ListItemData) => void;
-  onToggle: (item: ListItemData) => void;
-}) {
+}: ListContainerProps) => {
   return (
     <ul className="w-full">
       {items.map((item) => (
@@ -23,4 +18,4 @@ export default function ListContainer({
       ))}
     </ul>
   );
-}
+};

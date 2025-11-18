@@ -1,14 +1,14 @@
-import { FaTrash } from "react-icons/fa";
+import { FaTrash, FaSave } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { useCallback, useEffect, useState } from "react";
 import { EditContainerProps } from "@/types/todo";
 
-export default function EditContainer({
+export const EditContainer = ({
   todo,
   onClose,
   onChange,
   onDelete
-}: EditContainerProps) {
+}: EditContainerProps) => {
   const [title, setTitle] = useState<string>(todo.title);
   const [description, setDescription] = useState<string>(
     todo.description || ""
@@ -18,7 +18,7 @@ export default function EditContainer({
     onChange({
       ...todo,
       title,
-      // Making sure that the values stay persisten if no change is made
+      // Making sure that the values stay persistent if no change is made
       description:
         todo.description === undefined && description === ""
           ? undefined
@@ -89,6 +89,13 @@ export default function EditContainer({
         </div>
 
         <button
+          onClick={() => close()}
+          className="ml-auto inline-flex items-center gap-2 text-zinc-600 border border-zinc-400 rounded-lg px-3 py-1 hover:bg-zinc-300 hover:text-black transition"
+        >
+          <FaSave />
+          Save
+        </button>
+        <button
           onClick={() => onDelete(todo)}
           className="ml-auto inline-flex items-center gap-2 text-zinc-600 border border-zinc-400 rounded-lg px-3 py-1 hover:bg-zinc-300 hover:text-black transition"
         >
@@ -98,4 +105,4 @@ export default function EditContainer({
       </motion.div>
     </>
   );
-}
+};

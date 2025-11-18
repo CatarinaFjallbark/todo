@@ -1,5 +1,5 @@
 # My todo app
-Welcome to my todo app created with Next.js. The frontend is build with React components and Tailwind CSS and the backend is a REST API using Next.js API routes for managing todos.
+Welcome to my todo app created with Next.js. The frontend is built with React components and Tailwind CSS and the backend is a REST API using Next.js API routes for managing todos.
 
 The reason for using Next.js is because it is convinient to use for a basic fullstack application. I have never used Tailwind before but it was the default settings when I created the application and I wanted to try it. Vitest is commonly used so I used it for testing and Swagger is easy and well used for API documentation. 
 
@@ -27,7 +27,7 @@ https://todo-two-theta-87.vercel.app/
 
 ## Usage
 * add todo by entering title and press enter
-* to edit a todo you press the title and the edit view will open, in order to save your edits you press outside or ESC the view.
+* to edit a todo you press the title and the edit view will open, in order to save your edits you press outside, ESC the view och press SAVE. Initially my plan was to not have a save button but needed in mobile view.
 
 ## Architecture
 The frontend is created with several components that is explained below:
@@ -42,7 +42,7 @@ The frontend is created with several components that is explained below:
 * edit
     - edit title, add description and due date 
 * pagination
-    - only visible when more than ten todos, horisontable scrollable when needed.
+    - only visible when more than ten todos, horizontally scrollable when needed.
 
 The backend
 * REST
@@ -50,7 +50,7 @@ The backend
 * Sort checked last
 
 ## Tests
-Some basic tests of the routes are implemented with vitest. Before each test the data is reset and then three diffent todos are added. Of course a more complete set of tests should be added for the application to be production ready. I have not implemented any unit och component test for this assignment but that can also be done for a real application.
+Some basic tests of the routes are implemented with vitest. Before each test the data is reset and then three different todos are added. Of course a more complete set of tests should be added for the application to be production ready. I have not implemented any unit and component test for this assignment but that can also be done for a real application.
 
 ## Documentation
 /docs will show the API documentation in Swagger.
@@ -65,6 +65,6 @@ Some basic tests of the routes are implemented with vitest. Before each test the
 ## Further development
 * error handling
 
-* UX improvement
+* UX improvements
 
 * Keyboard commands
